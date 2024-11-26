@@ -11,7 +11,7 @@ public class UbicacionDto {
     private int statuscode;
     private String message;
     private Integer id;
-    private String nombree;
+    private String nombre;
     private Double longitud;
     private Double latitud;
     private Double temperatura_actual;
