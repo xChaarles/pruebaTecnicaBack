@@ -5,6 +5,9 @@ import com.temperaturaBogota.Entidades.Ubicacion;
 import com.temperaturaBogota.Repositorio.UbicacionRespository;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +34,25 @@ public class UbicacionService {
         }catch (Exception e){
             ubicacionDto.setStatuscode(500);
             ubicacionDto.setMessage("Ocurrio un error: " + e.getMessage());
+        }
+        return ubicacionDto;
+    }
+
+    public UbicacionDto getAllUbicacionPage(Integer page, Integer size) {
+        int adjustedPage = page - 1;
+
+        Pageable pageable = PageRequest.of(adjustedPage, size);
+        Page<Ubicacion> result = ubicacionRespository.findAll(pageable);
+
+        UbicacionDto ubicacionDto = new UbicacionDto();
+        if (!result.isEmpty()) {
+            ubicacionDto.setUbicacionList(result.getContent());
+            ubicacionDto.setTotalCount(result.getTotalElements());
+            ubicacionDto.setStatuscode(200);
+            ubicacionDto.setMessage("Lista de Ubicaciones Exitosa");
+        } else {
+            ubicacionDto.setStatuscode(404);
+            ubicacionDto.setMessage("No se encontraron Ubicaciones");
         }
         return ubicacionDto;
     }

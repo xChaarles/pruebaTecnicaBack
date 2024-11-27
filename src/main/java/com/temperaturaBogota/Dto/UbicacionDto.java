@@ -17,5 +17,6 @@ public class UbicacionDto {
     private Double temperatura_actual;
     private Ubicacion ubicacion;
     private List<Ubicacion> ubicacionList;
+    private long totalCount;
 
 }

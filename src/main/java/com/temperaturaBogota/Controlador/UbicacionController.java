@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,6 +19,12 @@ public class UbicacionController implements UbicacionControllerImpl {
     @Override
     public ResponseEntity<UbicacionDto> getAllUbicacion(){
         return ResponseEntity.ok(ubicacionService.getAllUbicacion());
+    }
+
+    @Override
+    public ResponseEntity<UbicacionDto> getAllUbicacionPage(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                        @RequestParam Integer size){
+        return ResponseEntity.ok(ubicacionService.getAllUbicacionPage(page, size));
     }
 
     @Override
